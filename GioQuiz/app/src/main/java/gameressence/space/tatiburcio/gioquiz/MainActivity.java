@@ -1,20 +1,19 @@
 package gameressence.space.tatiburcio.gioquiz;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mTrueButton,mFalseButton;
+    private Button mTrueButton,mFalseButton,mCheatButton;
 
     private ImageButton mNextButton, mPrevButton;
     private TextView mQuestionTextView;
@@ -23,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
 
     private static final String KEY_INDEX = "index";
+
+    private final static int REQUEST_CODE_CHEAT = 0;
 
     private Question[] mQuestionBank = new Question[]
             {
@@ -33,7 +34,22 @@ public class MainActivity extends AppCompatActivity {
                     new Question(R.string.question_asia,true),
             };
 
+
+    private boolean mIsCheater;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(resultCode != Activity.RESULT_OK) return;
+        if(requestCode == REQUEST_CODE_CHEAT)
+        {
+            if (data == null) return;
+            this.mIsCheater = CheatActivity.wasAnswerShown(data);
+        }
+    }
+
     private void updateQuestion() {
+        //Log.d(TAG, "Updating question text for question #" + mCurrentIndex, new Exception());
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
     }
@@ -42,12 +58,16 @@ public class MainActivity extends AppCompatActivity {
     {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
         int messageResId = 0;
-        if (userPressedTrue == answerIsTrue) {
-            messageResId = R.string.correct_toast;
-        } else {
-            messageResId = R.string.incorrect_toast;
+        if(this.mIsCheater)
+            messageResId = R.string.judgment_toast;
+        else {
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.correct_toast;
+            } else {
+                messageResId = R.string.incorrect_toast;
+            }
         }
-Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
+Toast.makeText(MainActivity.this, messageResId, Toast.LENGTH_SHORT)
             .show();
     }
 
@@ -61,7 +81,24 @@ Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
+        /**
+         * Begin chapter 5 cheating mode
+         */
 
+        mCheatButton = (Button)findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start CheatActivity
+                //Intent i = new Intent(MainActivity.this, CheatActivity.class);
+                //Begin chapter 5 stuff
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                Intent i = CheatActivity.newIntent(MainActivity.this,answerIsTrue);
+                //startActivity();
+                //startActivity(i);
+                startActivityForResult(i,REQUEST_CODE_CHEAT);
+            }
+        });
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         //int question = mQuestionBank[mCurrentIndex].getTextResId();
         //mQuestionTextView.setText(question);
@@ -107,6 +144,7 @@ Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 //int question = mQuestionBank[mCurrentIndex].getTextResId();
                 //mQuestionTextView.setText(question);
+                mIsCheater = false;
                 updateQuestion();
             }
         });
@@ -120,6 +158,7 @@ Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
                 mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
                 //int question = mQuestionBank[mCurrentIndex].getTextResId();
                 //mQuestionTextView.setText(question);
+                mIsCheater = false;
                 updateQuestion();
             }
         });
