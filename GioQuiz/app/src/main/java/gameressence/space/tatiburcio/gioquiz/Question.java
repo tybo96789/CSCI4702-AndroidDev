@@ -1,7 +1,10 @@
 package gameressence.space.tatiburcio.gioquiz;
 
 /**
+ * Part of the GeoQuiz Program
  * Created by tyleratiburcio on 1/19/18.
+ *
+ * This class contains the action that pertain to the question aspect to the GeoQuiz Program
  */
 
 public class Question {
