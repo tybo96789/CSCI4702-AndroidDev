@@ -3,6 +3,7 @@ package gameressence.space.tatiburcio.gioquiz;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String KEY_INDEX = "index";
 
+    private static final String CHEATING_INDEX = "cheater";
+
     private final static int REQUEST_CODE_CHEAT = 0;
+
+    private final static String CHEAT_FLAG_INDEX = "cheatFlagIndex";
 
     private Question[] mQuestionBank = new Question[]
             {
@@ -34,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     new Question(R.string.question_asia,true),
             };
 
-
+    private int[] CHEAT_FLAG = new int[mQuestionBank.length];
     private boolean mIsCheater;
 
     @Override
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         {
             if (data == null) return;
             this.mIsCheater = CheatActivity.wasAnswerShown(data);
+            this.CHEAT_FLAG[mCurrentIndex] = -1;
         }
     }
 
@@ -58,16 +64,18 @@ public class MainActivity extends AppCompatActivity {
     {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
         int messageResId = 0;
-        if(this.mIsCheater)
+        if(this.mIsCheater || this.CHEAT_FLAG[mCurrentIndex] == -1) {
             messageResId = R.string.judgment_toast;
+        }
         else {
             if (userPressedTrue == answerIsTrue) {
                 messageResId = R.string.correct_toast;
+                this.CHEAT_FLAG[mCurrentIndex]++;
             } else {
                 messageResId = R.string.incorrect_toast;
             }
         }
-Toast.makeText(MainActivity.this, messageResId, Toast.LENGTH_SHORT)
+Toast.makeText(MainActivity.this, messageResId, Toast.LENGTH_LONG)
             .show();
     }
 
@@ -80,6 +88,8 @@ Toast.makeText(MainActivity.this, messageResId, Toast.LENGTH_SHORT)
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            this.mIsCheater = savedInstanceState.getBoolean(CHEATING_INDEX, false);
+            this.CHEAT_FLAG = savedInstanceState.getIntArray(CHEAT_FLAG_INDEX);
         }
         /**
          * Begin chapter 5 cheating mode
@@ -214,6 +224,8 @@ Toast.makeText(MainActivity.this, messageResId, Toast.LENGTH_SHORT)
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putBoolean(CHEATING_INDEX,mIsCheater);
+        savedInstanceState.putIntArray(CHEAT_FLAG_INDEX,this.CHEAT_FLAG);
     }
 
 

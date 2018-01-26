@@ -46,6 +46,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/show_answer_button"/>
+
+        <TextView
+            android:id="@+id/build_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:text="DOes this work?"/>
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
