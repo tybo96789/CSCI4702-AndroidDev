@@ -65,8 +65,7 @@ public class CheatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cheat);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-		//Shows build number
-		this.mBuildVersionView.setText("Build Version " + Build.VERSION.SDK_INT);
+
 		
 		//This will restore the state of the cheating activity if the user decides to rotate the display
         if (savedInstanceState != null) {
@@ -78,6 +77,8 @@ public class CheatActivity extends AppCompatActivity {
 		
         this.mAnswerTExtView = (TextView) findViewById(R.id.answer_text_view);
         this.mBuildVersionView = (TextView) findViewById(R.id.build_version);
+        //Shows build number
+        this.mBuildVersionView.setText("Build Version " + Build.VERSION.SDK_INT);
         this.mShowAnswer = (Button) findViewById(R.id.show_answer_button);
         this.mShowAnswer.setOnClickListener(new View.OnClickListener()
         {
