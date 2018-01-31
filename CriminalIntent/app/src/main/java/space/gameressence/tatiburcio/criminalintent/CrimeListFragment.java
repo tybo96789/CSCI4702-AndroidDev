@@ -13,12 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
-
+import java.util.UUID;
 
 
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+
+    //Being chapter 10 challenge
+    private UUID currCrime = null;
+    //End chapter 10 challenge
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,11 +48,26 @@ public class CrimeListFragment extends Fragment {
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
-
+        //Begin chapter 10 challenge
+        int index  = -1;
+        if(currCrime != null)
+            for(int i = 0; i < crimes.size(); i++)
+            {
+                if(crimes.get(i).getId().equals(currCrime))
+                {
+                    index = i;
+                    break;
+                }
+            }
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
-        } else {
+        } else if (index != -1)
+        {
+            mAdapter.notifyItemChanged(index);
+        }
+        else
+        {
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -102,7 +121,11 @@ public class CrimeListFragment extends Fragment {
             //START CHAPTER 10
             //Intent intent = new Intent(getActivity(), CrimeActivity.class);
             Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            //Being chapter 10 challenge
+            currCrime = mCrime.getId();
+            //End chapter 10 challenge
             startActivity(intent);
+            //End chapter 10
 
         }
     }
