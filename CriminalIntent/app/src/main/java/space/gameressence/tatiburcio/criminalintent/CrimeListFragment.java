@@ -129,7 +129,13 @@ public class CrimeListFragment extends Fragment {
             //Toast.makeText(getActivity(),mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
             //START CHAPTER 10
             //Intent intent = new Intent(getActivity(), CrimeActivity.class);
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            //Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+
+            //Start chapter 11
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
+            //ENd Chapter 11
+
+
             //Being chapter 10 challenge
             //Save the UUID of the crime being modified
             currCrime = mCrime.getId();
