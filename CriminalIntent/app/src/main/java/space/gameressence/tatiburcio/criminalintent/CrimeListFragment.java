@@ -15,7 +15,11 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ * Makes and updates the list of crime fragments
+ * @author Tyler Atiburcio
+ * @version 1
+ */
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
@@ -45,12 +49,17 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
+    /**
+     * Updated version to only updated item that has been opened instead of the whole list
+     */
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
         //Begin chapter 10 challenge
         int index  = -1;
+        //Check if current crime was previously saved
         if(currCrime != null)
+            //Find the crime instance in the list of crimes by its UUID
             for(int i = 0; i < crimes.size(); i++)
             {
                 if(crimes.get(i).getId().equals(currCrime))
@@ -62,7 +71,7 @@ public class CrimeListFragment extends Fragment {
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
-        } else if (index != -1)
+        } else if (index != -1) //Update the item in the list if its a valid index
         {
             mAdapter.notifyItemChanged(index);
         }
@@ -122,6 +131,7 @@ public class CrimeListFragment extends Fragment {
             //Intent intent = new Intent(getActivity(), CrimeActivity.class);
             Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
             //Being chapter 10 challenge
+            //Save the UUID of the crime being modified
             currCrime = mCrime.getId();
             //End chapter 10 challenge
             startActivity(intent);

@@ -16,6 +16,11 @@ import java.util.UUID;
 
 import static android.widget.CompoundButton.*;
 
+/**
+ * The Details of the crime after selecting a crime from the list
+ * @author Tyler Atiburcio
+ * @version 1
+ */
 public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
