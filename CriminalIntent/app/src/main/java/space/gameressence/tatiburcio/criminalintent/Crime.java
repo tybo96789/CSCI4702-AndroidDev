@@ -17,10 +17,16 @@ public class Crime {
 
     public Crime()
     {
-        //Generate Unique identifier
-        this.mID = UUID.randomUUID();
-        this.mDate = new Date();
+        //Removed chapter 14
+//        //Generate Unique identifier
+//        this.mID = UUID.randomUUID();
+//        this.mDate = new Date();
+        this(UUID.randomUUID());
+    }
 
+    public Crime(UUID id) {
+        mID = id;
+        mDate = new Date();
     }
 
     public UUID getId() {
