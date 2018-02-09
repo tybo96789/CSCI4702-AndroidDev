@@ -57,4 +57,15 @@ public class Crime {
     public void setSolved(boolean solved) {
         mSolved = solved;
     }
+
+    //Begin chapter 15
+    private String mSuspect;
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
+    }
 }
