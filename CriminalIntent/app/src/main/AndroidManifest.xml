@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="space.gameressence.tatiburcio.criminalintent">
 
+    <!--Chapter 16 Declare required features for android-->
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false"
+        />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +31,16 @@
             -->
 
         </activity>
+        <!--Chapter 16 stuff-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="space.gameressence.tatiburcio.criminalintent.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/files"/>
+        </provider>
     </application>
 
 </manifest>
