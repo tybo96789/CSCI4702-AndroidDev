@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+import java.util.Random;
 
 import space.gameressence.tatiburcio.beatbox.databinding.FragmentBeatBoxBinding;
 import space.gameressence.tatiburcio.beatbox.databinding.ListItemSoundBinding;
@@ -33,7 +34,7 @@ public class BeatBoxFragment extends Fragment {
                 .inflate(inflater, R.layout.fragment_beat_box, container, false);
 
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),
-                3));
+                (1+ new Random().nextInt(5))));
         binding.recyclerView.setAdapter(new SoundAdapter(mBeatBox.getSounds()));
         return binding.getRoot();
     }
@@ -83,8 +84,15 @@ public class BeatBoxFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.setRetainInstance(true);
         mBeatBox = new BeatBox(getActivity());
 
+    }
+
+    //Chapter 21
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mBeatBox.release();
     }
 }

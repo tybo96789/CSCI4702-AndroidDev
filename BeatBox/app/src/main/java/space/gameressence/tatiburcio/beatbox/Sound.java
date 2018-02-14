@@ -20,4 +20,14 @@ public class Sound {
 public String getName() {
         return mName;
         }
+
+        //Chapter 21
+        private Integer mSoundId;
+    public Integer getSoundId() {
+        return mSoundId;
+    }
+
+    public void setSoundId(Integer soundId) {
+        mSoundId = soundId;
+    }
 }

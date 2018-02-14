@@ -2,6 +2,7 @@ package space.gameressence.tatiburcio.beatbox;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 
 /**
  * Created by tybo96789 on 2/13/18.
@@ -27,5 +28,12 @@ public class SoundViewModel extends BaseObservable {
         return mSound.getName();
     }
 
-
+    //Chapter 21
+    public void onButtonClicked() {
+        mBeatBox.play(mSound);
+        Log.d("BeatBox","Playing sound?");
+    }
 }
+
+
+
