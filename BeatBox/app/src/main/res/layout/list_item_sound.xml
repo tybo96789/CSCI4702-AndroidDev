@@ -7,10 +7,22 @@
             name="viewModel"
             type="space.gameressence.tatiburcio.beatbox.SoundViewModel"/>
     </data>
-    <Button
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="120dp"-->
+        <!--tools:text="Sound name"-->
+        <!--android:onClick="@{() -> viewModel.onButtonClicked()}"-->
+        <!--android:text="@{viewModel.title}"/>-->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        tools:text="Sound name"
-        android:onClick="@{() -> viewModel.onButtonClicked()}"
-        android:text="@{viewModel.title}"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:onClick="@{() -> viewModel.onButtonClicked()}"
+            android:text="@{viewModel.title}"
+            tools:text="Sound name"/>
+    </FrameLayout>
 </layout>
