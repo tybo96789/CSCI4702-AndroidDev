@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 public class MainActivityFragment extends Fragment {
     private CannonView mCannonView;
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
          super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_main,container,false);
@@ -23,7 +23,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         this.getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -38,6 +38,6 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.mCannonView.releaseResources();
+        this.mCannonView.releaseResoruces();
     }
 }

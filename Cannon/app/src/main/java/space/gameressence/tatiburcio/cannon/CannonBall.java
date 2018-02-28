@@ -47,7 +47,7 @@ public class CannonBall extends GameElement {
         this.shape.offset((int) (velocityX * interval),0);
 
         //if cannonball goes off the screen
-        if(this.shape.top < 0 || this.shape.left < 0 || this.shape.bottom > this.view.getHeight() || this.shape.right > this.view.getWidth())
+        if(this.shape.top < 0 || this.shape.left < 0 || this.shape.bottom > this.view.getScreenHeight() || this.shape.right > this.view.getScreenWidth())
             this.onScreen = false;
     }
 

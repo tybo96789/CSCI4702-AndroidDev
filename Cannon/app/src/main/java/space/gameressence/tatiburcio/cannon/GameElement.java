@@ -30,7 +30,7 @@ public class GameElement {
         this.shape.offset(0, (int) (this.velocityY * interval));
 
         //if this gameElement collides with the wall, reverse the direction
-        if(this.shape.top < 0 && velocityY < 0 || this.shape.bottom > this.view.getHeight() && this.velocityY > 0)
+        if(this.shape.top < 0 && velocityY < 0 || this.shape.bottom > this.view.getScreenHeight() && this.velocityY > 0)
             this.velocityY *= -1;
     }
 
@@ -41,6 +41,6 @@ public class GameElement {
 
     public void playSound()
     {
-        view.playSoundEffect(soundID);
+        view.playSound(soundID);
     }
 }

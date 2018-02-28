@@ -30,27 +30,27 @@ public class Cannon {
     public void align(double barrelAngle) {
         this.barrelAngle = barrelAngle;
         this.barrelEnd.x = (int) (this.barrelLength * Math.sin(this.barrelAngle));
-        this.barrelEnd.y = (int) (-this.barrelLength * Math.cos(this.barrelAngle)) + view.getHeight()/2;
+        this.barrelEnd.y = (int) (-this.barrelLength * Math.cos(this.barrelAngle)) + view.getScreenHeight()/2;
     }
 
     public void fireCannonBall()
     {
-        int velocityX = (int) (CannonView.CANNON_SPEED_PERCENT * this.view.getHeight() * Math.sin(this.barrelAngle));
+        int velocityX = (int) (CannonView.CANNONBALL_SPEED_PERCENT * this.view.getScreenHeight() * Math.sin(this.barrelAngle));
 
-        int velocityY = (int) (CannonView.CANNON_SPEED_PERCENT * this.view.getHeight() * -Math.cos(this.barrelAngle));
+        int velocityY = (int) (CannonView.CANNONBALL_SPEED_PERCENT * this.view.getScreenHeight() * -Math.cos(this.barrelAngle));
 
-        int radius = (int) (view.getHeight() * CannonView.CANNON_RADIUS_PERCENT);
+        int radius = (int) (view.getScreenHeight() * CannonView.CANNONBALL_RADIUS_PERCENT);
 
-        this.mCannonBall = new CannonBall(this.view, (int) R.color.cannonColor, CannonView.CANNON_SOUND_ID, -radius, this.view.getHeight()/2 - radius, radius, velocityX, velocityY);
+        this.mCannonBall = new CannonBall(this.view, (int) R.color.cannonColor, CannonView.CANNON_SOUND_ID, -radius, this.view.getScreenHeight()/2 - radius, radius, velocityX, velocityY);
 
         this.mCannonBall.playSound();
     }
 
     public void draw(Canvas canvas)
     {
-        canvas.drawLine(0, this.view.getHeight()/2, this.barrelEnd.x, this.barrelEnd.y, this.mPaint);
+        canvas.drawLine(0, this.view.getScreenHeight()/2, this.barrelEnd.x, this.barrelEnd.y, this.mPaint);
 
-        canvas.drawCircle(0, (int) this.view.getHeight()/2, (int) baseRadius, this.mPaint);
+        canvas.drawCircle(0, (int) this.view.getScreenHeight()/2, (int) baseRadius, this.mPaint);
     }
 
     public CannonBall getCannonBall() {
